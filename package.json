@@ -1,0 +1,16 @@
+{
+  "name": "poc-lc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "gin -p 4000 run main.go"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitserv.cdg.co.th/paiboon.a/poc-lc.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
