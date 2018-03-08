@@ -45,7 +45,7 @@
 <body>
   <div class="container">
     <h1>Generate Firmware</h1>
-    <form method="POST" action="/generate">
+    <form method="POST" action="/">
       <div class="form-control">
         <label>Customer Name : </label>
         <input type="text" name="customerName" />
@@ -63,6 +63,9 @@
         <button type="submit">Generate</button>
       </div>
     </form>
+    {{if .}}
+    <h4>{{.}}</h4>
+    {{end}}
   </div>
 </body>
 
