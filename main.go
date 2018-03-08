@@ -14,24 +14,29 @@ import (
 var tpl *template.Template
 
 func init() {
-	tpl = template.Must(template.ParseGlob("templates/*.gohtml"))
+	tpl = template.Must(template.ParseGlob("templates/*.html"))
 }
 
 func main() {
 	router := httprouter.New()
 	router.GET("/", index)
-	router.GET("/generate", generate)
+	router.GET("/generate", testgenerate)
+	router.POST("/generate", generate)
 	http.ListenAndServe(":3001", router)
 }
 
+func generate(w http.ResponseWriter, req *http.Request, _ httprouter.Params) {
+	io.WriteString(w, "yo")
+}
+
 func index(w http.ResponseWriter, req *http.Request, _ httprouter.Params) {
-	err := tpl.ExecuteTemplate(w, "gfw.gohtml", nil)
+	err := tpl.ExecuteTemplate(w, "gfw.html", nil)
 	if err != nil {
 		log.Fatalln(err)
 	}
 }
 
-func generate(w http.ResponseWriter, req *http.Request, _ httprouter.Params) {
+func testgenerate(w http.ResponseWriter, req *http.Request, _ httprouter.Params) {
 	f := jen.NewFile("main")
 	f.Func().Id("main").Params().Block(
 		jen.Qual("fmt", "Println").Call(jen.Lit("Hello, world")),
