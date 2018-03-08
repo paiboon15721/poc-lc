@@ -4,6 +4,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"os/exec"
 	"strconv"
 
 	jen "github.com/dave/jennifer/jen"
@@ -35,7 +36,11 @@ func generate(w http.ResponseWriter, req *http.Request, _ httprouter.Params) {
 	f.Var().Add(jen.Id("serverID"), jen.Op("="), jen.Lit(serverID))
 	f.Var().Add(jen.Id("totalLicense"), jen.Op("="), jen.Lit(totalLicense))
 	f.Save("firmware/config.go")
-	err := tpl.ExecuteTemplate(w, "gfw.html", "generate firmware success!")
+	err := exec.Command("go", "build", "./firmware").Run()
+	if err != nil {
+		log.Fatalln(err)
+	}
+	err = tpl.ExecuteTemplate(w, "gfw.html", "generate firmware success!")
 	if err != nil {
 		log.Fatalln(err)
 	}
