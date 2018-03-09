@@ -1,5 +1,5 @@
 vendor
-*.exe~
+*.exe*
 firmware/config.go
 firmware/*.exe
-firmware/*.db
+firmware/*.db*
