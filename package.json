@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "gin --all -p 4000 run main.go"
+    "dev": "gin --all -p 4000 run main.go",
+    "devf": "cd firmware && gin -p 3000 run main.go"
   },
   "repository": {
     "type": "git",
