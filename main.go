@@ -31,10 +31,10 @@ func generate(w http.ResponseWriter, req *http.Request, _ httprouter.Params) {
 	f := jen.NewFile("main")
 	customer := req.PostFormValue("customer")
 	hardwareID := req.PostFormValue("hardwareID")
-	quota, _ := strconv.Atoi(req.PostFormValue("quota"))
+	quotaTotal, _ := strconv.Atoi(req.PostFormValue("quotaTotal"))
 	f.Var().Add(jen.Id("customer"), jen.Op("="), jen.Lit(customer))
 	f.Var().Add(jen.Id("hardwareID"), jen.Op("="), jen.Lit(hardwareID))
-	f.Var().Add(jen.Id("quota"), jen.Op("="), jen.Lit(quota))
+	f.Var().Add(jen.Id("quotaTotal"), jen.Op("="), jen.Lit(quotaTotal))
 	f.Save("firmware/config.go")
 	err := exec.Command("go", "build", "-o", "./firmware/firmware.exe", "./firmware").Run()
 	if err != nil {
