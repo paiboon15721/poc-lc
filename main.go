@@ -36,7 +36,7 @@ func generate(w http.ResponseWriter, req *http.Request, _ httprouter.Params) {
 	f.Var().Add(jen.Id("serverID"), jen.Op("="), jen.Lit(serverID))
 	f.Var().Add(jen.Id("totalLicense"), jen.Op("="), jen.Lit(totalLicense))
 	f.Save("firmware/config.go")
-	err := exec.Command("go", "build", "./firmware").Run()
+	err := exec.Command("go", "build", "-o", "./firmware/firmware.exe", "./firmware").Run()
 	if err != nil {
 		log.Fatalln(err)
 	}
