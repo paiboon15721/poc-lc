@@ -29,12 +29,12 @@ func generate(w http.ResponseWriter, req *http.Request, _ httprouter.Params) {
 		log.Fatalln(err)
 	}
 	f := jen.NewFile("main")
-	customerName := req.PostFormValue("customerName")
-	serverID := req.PostFormValue("serverID")
-	totalLicense, _ := strconv.Atoi(req.PostFormValue("totalLicense"))
-	f.Var().Add(jen.Id("customerName"), jen.Op("="), jen.Lit(customerName))
-	f.Var().Add(jen.Id("serverID"), jen.Op("="), jen.Lit(serverID))
-	f.Var().Add(jen.Id("totalLicense"), jen.Op("="), jen.Lit(totalLicense))
+	customer := req.PostFormValue("customer")
+	hardwareID := req.PostFormValue("hardwareID")
+	quotaTotal, _ := strconv.Atoi(req.PostFormValue("quotaTotal"))
+	f.Var().Add(jen.Id("customer"), jen.Op("="), jen.Lit(customer))
+	f.Var().Add(jen.Id("hardwareID"), jen.Op("="), jen.Lit(hardwareID))
+	f.Var().Add(jen.Id("quotaTotal"), jen.Op("="), jen.Lit(quotaTotal))
 	f.Save("firmware/config.go")
 	err := exec.Command("go", "build", "-o", "./firmware/firmware.exe", "./firmware").Run()
 	if err != nil {

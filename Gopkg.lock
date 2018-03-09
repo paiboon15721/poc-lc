@@ -7,9 +7,15 @@
   revision = "585b61e32a467a61d41152322337e8dfdb86c932"
   version = "v0.17.1"
 
+[[projects]]
+  name = "github.com/julienschmidt/httprouter"
+  packages = ["."]
+  revision = "8c199fb6259ffc1af525cc3ad52ee60ba8359669"
+  version = "v1.1"
+
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "3c3d9cc1080a2116a26431d4751b1a19c3bb50fb814247f9f844a46194adeb3e"
+  inputs-digest = "b621cc5f18f8649acb676ac8ca4e69087d1110a93142e7c2b604f1627efc0558"
   solver-name = "gps-cdcl"
   solver-version = 1
