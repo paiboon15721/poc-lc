@@ -2,6 +2,12 @@
 
 
 [[projects]]
+  name = "github.com/coreos/bbolt"
+  packages = ["."]
+  revision = "583e8937c61f1af6513608ccc75c97b6abdf4ff9"
+  version = "v1.3.0"
+
+[[projects]]
   name = "github.com/dave/jennifer"
   packages = ["jen"]
   revision = "585b61e32a467a61d41152322337e8dfdb86c932"
@@ -13,9 +19,15 @@
   revision = "8c199fb6259ffc1af525cc3ad52ee60ba8359669"
   version = "v1.1"
 
+[[projects]]
+  branch = "master"
+  name = "golang.org/x/sys"
+  packages = ["unix"]
+  revision = "7dca6fe1f43775aa6d1334576870ff63f978f539"
+
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "b621cc5f18f8649acb676ac8ca4e69087d1110a93142e7c2b604f1627efc0558"
+  inputs-digest = "bfbe858b695ba03a5c0dde9698361dabba89ba83719ac7dd329395cda9759997"
   solver-name = "gps-cdcl"
   solver-version = 1
