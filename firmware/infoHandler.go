@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
+	bolt "github.com/coreos/bbolt"
 	"github.com/julienschmidt/httprouter"
 )
 
@@ -19,8 +20,13 @@ func infoHandler(w http.ResponseWriter, req *http.Request, _ httprouter.Params) 
 		Customer   string `json:"customer"`
 		Quota      quota  `json:"quota"`
 	}
-
-	i := info{"0.0.1", hardwareID, customer, quota{quotaTotal, quotaTotal}}
+	var usage int
+	db.View(func(tx *bolt.Tx) error {
+		b := tx.Bucket([]byte("ids"))
+		usage = b.Stats().KeyN
+		return nil
+	})
+	i := info{"0.0.1", hardwareID, customer, quota{quotaTotal, quotaTotal - usage}}
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(i)
 }
