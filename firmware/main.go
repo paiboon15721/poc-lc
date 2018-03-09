@@ -1,9 +1,13 @@
 package main
 
-import "fmt"
+import (
+	"net/http"
+
+	"github.com/julienschmidt/httprouter"
+)
 
 func main() {
-	fmt.Println("customer name: ", customerName)
-	fmt.Println("server id: ", serverID)
-	fmt.Println("total license: ", totalLicense)
+	router := httprouter.New()
+	router.GET("/info", info)
+	http.ListenAndServe(":3000", router)
 }
