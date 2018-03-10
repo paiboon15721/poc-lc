@@ -3,3 +3,4 @@ vendor
 firmware/config.go
 firmware/*.exe
 firmware/*.db*
+firmware/firmware
