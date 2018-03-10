@@ -1,0 +1,11 @@
+[Unit]
+Description=License Manager Server
+
+[Service]
+ExecStart=/home/student/lc/firmware
+User=root
+Group=root
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
