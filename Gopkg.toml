@@ -32,3 +32,7 @@
 [[constraint]]
   name = "github.com/dave/jennifer"
   version = "0.17.1"
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/jlaffaye/ftp"

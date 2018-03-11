@@ -14,6 +14,12 @@
   version = "v0.17.1"
 
 [[projects]]
+  branch = "master"
+  name = "github.com/jlaffaye/ftp"
+  packages = ["."]
+  revision = "427467931c6fbc25acba4537c9d3cbc40cfa569b"
+
+[[projects]]
   name = "github.com/julienschmidt/httprouter"
   packages = ["."]
   revision = "8c199fb6259ffc1af525cc3ad52ee60ba8359669"
@@ -28,6 +34,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "bfbe858b695ba03a5c0dde9698361dabba89ba83719ac7dd329395cda9759997"
+  inputs-digest = "43683986cab8982b329060bb6e80325cbbe574ebd0f7c15d288108e4a7ebcc6c"
   solver-name = "gps-cdcl"
   solver-version = 1
