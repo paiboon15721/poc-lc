@@ -23,14 +23,14 @@ func activateHandler(w http.ResponseWriter, req *http.Request, _ httprouter.Para
 
 	var reqData reqBody
 	json.NewDecoder(req.Body).Decode(&reqData)
-	hardwareID = strings.TrimSpace(reqData.HardwareID)
+	connectedHardwareID := strings.TrimSpace(reqData.HardwareID)
 	if hardwareID == "" {
 		http.Error(w, "hardwareID is required", 401)
 		return
 	}
 	var exist bool
 	db.View(func(tx *bolt.Tx) error {
-		v := tx.Bucket([]byte("ids")).Get([]byte(hardwareID))
+		v := tx.Bucket([]byte("ids")).Get([]byte(connectedHardwareID))
 		if v != nil {
 			exist = true
 		}
@@ -49,11 +49,11 @@ func activateHandler(w http.ResponseWriter, req *http.Request, _ httprouter.Para
 		}
 		db.Update(func(tx *bolt.Tx) error {
 			b := tx.Bucket([]byte("ids"))
-			if err := b.Put([]byte(hardwareID), []byte("1")); err != nil {
+			if err := b.Put([]byte(connectedHardwareID), []byte("1")); err != nil {
 				return fmt.Errorf("put: %s", err)
 			}
 			return nil
 		})
 	}
-	json.NewEncoder(w).Encode(resBody{hardwareID})
+	json.NewEncoder(w).Encode(resBody{connectedHardwareID})
 }
