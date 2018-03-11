@@ -17,5 +17,6 @@ func main() {
 	router := httprouter.New()
 	router.GET("/", indexHandler)
 	router.POST("/", generateHandler)
+	router.GET("/install", installHandler)
 	http.ListenAndServe(":3001", router)
 }
