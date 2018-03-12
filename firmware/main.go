@@ -1,9 +1,12 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"log"
 	"net/http"
+	"os/exec"
+	"strings"
 
 	bolt "github.com/coreos/bbolt"
 	"github.com/julienschmidt/httprouter"
@@ -13,9 +16,20 @@ var db *bolt.DB
 
 func main() {
 	// Check valid hardwareID
+	var err error
+	cmd := exec.Command("sudo", "cat", "/sys/class/dmi/id/product_uuid")
+	var b bytes.Buffer
+	cmd.Stdout = &b
+	err = cmd.Run()
+	if err != nil {
+		panic(err)
+	}
+	realHardwareID := strings.TrimSuffix(b.String(), "\n")
+	if realHardwareID != hardwareID {
+		panic("hardwareID invalid!")
+	}
 
 	// Initial bolt database
-	var err error
 	db, err = bolt.Open("lc.db", 0644, nil)
 	if err != nil {
 		log.Fatal(err)
