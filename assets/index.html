@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Generate Firmware</title>
+  <style>
+    h4 {
+      color: green;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h1 {
+      margin-top: 0;
+    }
+
+    .container {
+      border: dashed red;
+      width: 25rem;
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      padding: 1rem;
+    }
+
+    .form-control {
+      margin: 0.5rem;
+    }
+
+    label {
+      display: inline-block;
+      width: 8rem;
+      text-align: right;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Generate Firmware</h1>
+    <form method="POST" action="/">
+      <div class="form-control">
+        <label>Customer : </label>
+        <input type="text" name="customer" />
+      </div>
+      <div class="form-control">
+        <label>Hardware ID : </label>
+        <input type="text" name="hardwareID" />
+      </div>
+      <div class="form-control">
+        <label>Quota Total : </label>
+        <input type="number" name="quotaTotal" />
+      </div>
+      <div class="form-control">
+        <label></label>
+        <button type="submit">Generate</button>
+      </div>
+    </form>
+  </div>
+</body>
+
+</html>
