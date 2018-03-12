@@ -12,6 +12,9 @@ import (
 var db *bolt.DB
 
 func main() {
+	// Check valid hardwareID
+
+	// Initial bolt database
 	var err error
 	db, err = bolt.Open("lc.db", 0644, nil)
 	if err != nil {
@@ -25,6 +28,8 @@ func main() {
 		}
 		return nil
 	})
+
+	// Setup router
 	router := httprouter.New()
 	router.GET("/info", infoHandler)
 	router.POST("/activate", activateHandler)
