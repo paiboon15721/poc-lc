@@ -26,8 +26,4 @@ func generateHandler(w http.ResponseWriter, req *http.Request, _ httprouter.Para
 	if err != nil {
 		log.Fatalln(err)
 	}
-	err = tpl.ExecuteTemplate(w, "gfw.html", "generate firmware success!")
-	if err != nil {
-		log.Fatalln(err)
-	}
 }
