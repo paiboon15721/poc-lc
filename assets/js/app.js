@@ -4,12 +4,16 @@ $('#btn-submit').click(function() {
   var serverPassword = $('#serverPassword').val();
   var customer = $('#customer').val();
   var quotaTotal = $('#quotaTotal').val();
+  var message = $('#message');
   if (
     !(serverIP && serverUsername && serverPassword && customer && quotaTotal)
   ) {
-    alert('Required all field!');
+    message.html('Required all field!').css('color', 'red');
     return;
   }
+  var btnSubmit = $('#btn-submit');
+  message.html('Installing firmware, please wait...').css('color', 'blue');
+  btnSubmit.attr('disabled', true);
   $.post(
     '/install',
     {
@@ -20,7 +24,8 @@ $('#btn-submit').click(function() {
       quotaTotal: quotaTotal
     },
     function(data) {
-      alert(data);
+      message.html(data).css('color', 'green');
+      btnSubmit.attr('disabled', false);
     }
   );
 });
