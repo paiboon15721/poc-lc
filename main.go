@@ -9,7 +9,6 @@ import (
 func main() {
 	router := httprouter.New()
 	router.ServeFiles("/app/*filepath", http.Dir("assets"))
-	router.POST("/", generateHandler)
-	router.GET("/install", installHandler)
+	router.POST("/install", installHandler)
 	http.ListenAndServe(":3001", router)
 }
