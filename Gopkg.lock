@@ -14,16 +14,23 @@
   version = "v0.17.1"
 
 [[projects]]
-  branch = "master"
-  name = "github.com/jlaffaye/ftp"
-  packages = ["."]
-  revision = "427467931c6fbc25acba4537c9d3cbc40cfa569b"
-
-[[projects]]
   name = "github.com/julienschmidt/httprouter"
   packages = ["."]
   revision = "8c199fb6259ffc1af525cc3ad52ee60ba8359669"
   version = "v1.1"
+
+[[projects]]
+  branch = "master"
+  name = "golang.org/x/crypto"
+  packages = [
+    "curve25519",
+    "ed25519",
+    "ed25519/internal/edwards25519",
+    "internal/chacha20",
+    "poly1305",
+    "ssh"
+  ]
+  revision = "c7dcf104e3a7a1417abc0230cb0d5240d764159d"
 
 [[projects]]
   branch = "master"
@@ -34,6 +41,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "43683986cab8982b329060bb6e80325cbbe574ebd0f7c15d288108e4a7ebcc6c"
+  inputs-digest = "f2e93b43d2a5fbd1146df8114262ec48c9b588e4e45d84adb11e0c00a61afd6f"
   solver-name = "gps-cdcl"
   solver-version = 1
