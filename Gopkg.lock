@@ -21,6 +21,18 @@
 
 [[projects]]
   branch = "master"
+  name = "github.com/kballard/go-shellquote"
+  packages = ["."]
+  revision = "cd60e84ee657ff3dc51de0b4f55dd299a3e136f2"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/tmc/scp"
+  packages = ["."]
+  revision = "f7b48647feef3e30991f2ecc16b2b9a977d9a7c3"
+
+[[projects]]
+  branch = "master"
   name = "golang.org/x/crypto"
   packages = [
     "curve25519",
@@ -41,6 +53,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "f2e93b43d2a5fbd1146df8114262ec48c9b588e4e45d84adb11e0c00a61afd6f"
+  inputs-digest = "c6c1ff012414571f66b48edb61017e2cdc8e808d7229d05b608c567269d65e5e"
   solver-name = "gps-cdcl"
   solver-version = 1
