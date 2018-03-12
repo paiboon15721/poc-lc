@@ -11,25 +11,25 @@
 
 <body>
   <div class="container">
-    <h1>Generate Firmware</h1>
-    <form method="POST" action="/">
+    <div>
+      <h1>Generate Firmware</h1>
       <div class="form-control">
         <label>Customer : </label>
-        <input type="text" name="customer" />
+        <input type="text" id="customer" />
       </div>
       <div class="form-control">
         <label>Hardware ID : </label>
-        <input type="text" name="hardwareID" />
+        <input type="text" id="hardwareID" />
       </div>
       <div class="form-control">
         <label>Quota Total : </label>
-        <input type="number" name="quotaTotal" />
+        <input type="number" id="quotaTotal" />
       </div>
       <div class="form-control">
         <label></label>
-        <button type="submit">Generate</button>
+        <button id="btn-submit">Generate</button>
       </div>
-    </form>
+    </div>
   </div>
   <script src="js/jquery-3.3.1.min.js"></script>
 </body>
