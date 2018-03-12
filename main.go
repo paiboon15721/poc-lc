@@ -15,7 +15,7 @@ func init() {
 
 func main() {
 	router := httprouter.New()
-	router.GET("/", indexHandler)
+	router.ServeFiles("/app/*filepath", http.Dir("assets"))
 	router.POST("/", generateHandler)
 	router.GET("/install", installHandler)
 	http.ListenAndServe(":3001", router)
