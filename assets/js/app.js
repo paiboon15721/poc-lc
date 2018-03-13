@@ -15,7 +15,7 @@ $('#btn-submit').click(function() {
   message.html('Installing firmware, please wait...').css('color', 'blue');
   btnSubmit.attr('disabled', true);
   $.post(
-    '/install',
+    '/api/install',
     {
       serverIP: serverIP,
       serverUsername: serverUsername,
