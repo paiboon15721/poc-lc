@@ -24,7 +24,7 @@ $('#btn-submit').click(function() {
       quotaTotal: quotaTotal
     },
     function(data) {
-      message.html(data).css('color', 'green');
+      message.html(data).css('color', '#64DD17');
       btnSubmit.attr('disabled', false);
     }
   ).fail(function(data) {
