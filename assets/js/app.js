@@ -12,7 +12,7 @@ $('#btn-submit').click(function() {
     return;
   }
   var btnSubmit = $('#btn-submit');
-  message.html('Installing firmware, please wait...').css('color', 'blue');
+  message.html('Installing firmware, please wait...').css('color', '#FFEB3B');
   btnSubmit.attr('disabled', true);
   $.post(
     '/api/install',
