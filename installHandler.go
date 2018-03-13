@@ -34,8 +34,9 @@ func installHandler(w http.ResponseWriter, req *http.Request, _ httprouter.Param
 	var client *ssh.Client
 	var session *ssh.Session
 	sshConfig := &ssh.ClientConfig{
-		User: serverUsername,
-		Auth: []ssh.AuthMethod{ssh.Password(serverPassword)},
+		User:    serverUsername,
+		Auth:    []ssh.AuthMethod{ssh.Password(serverPassword)},
+		Timeout: time.Duration(time.Millisecond * 2000),
 	}
 	sshConfig.HostKeyCallback = ssh.InsecureIgnoreHostKey()
 	client, err = ssh.Dial("tcp", fmt.Sprintf("%s:22", serverIP), sshConfig)
