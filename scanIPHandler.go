@@ -2,9 +2,9 @@ package main
 
 import (
 	"io"
-	"log"
 	"net"
 	"net/http"
+	"strings"
 
 	"github.com/julienschmidt/httprouter"
 )
@@ -21,10 +21,10 @@ import (
 func scanIPHandler(w http.ResponseWriter, req *http.Request, _ httprouter.Params) {
 	conn, err := net.Dial("udp", "8.8.8.8:80")
 	if err != nil {
-		log.Fatal(err)
+		http.Error(w, err.Error(), 500)
 	}
 	defer conn.Close()
-
-	localAddr := conn.LocalAddr().(*net.UDPAddr)
-	io.WriteString(w, localAddr.String())
+	localAddr := conn.LocalAddr().(*net.UDPAddr).String()
+	localIP := localAddr[:strings.IndexByte(localAddr, ':')]
+	io.WriteString(w, localIP)
 }
