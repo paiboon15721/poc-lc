@@ -27,5 +27,8 @@ $('#btn-submit').click(function() {
       message.html(data).css('color', 'green');
       btnSubmit.attr('disabled', false);
     }
-  );
+  ).fail(function(data) {
+    message.html(data.responseText).css('color', 'red');
+    btnSubmit.attr('disabled', false);
+  });
 });
