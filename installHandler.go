@@ -29,6 +29,7 @@ func installHandler(w http.ResponseWriter, req *http.Request, _ httprouter.Param
 	quotaTotal, _ := strconv.Atoi(req.PostFormValue("quotaTotal"))
 
 	// Init ssh session
+	var err error
 	var client *ssh.Client
 	var session *ssh.Session
 	sshConfig := &ssh.ClientConfig{
@@ -36,7 +37,11 @@ func installHandler(w http.ResponseWriter, req *http.Request, _ httprouter.Param
 		Auth: []ssh.AuthMethod{ssh.Password(serverPassword)},
 	}
 	sshConfig.HostKeyCallback = ssh.InsecureIgnoreHostKey()
-	client, _ = ssh.Dial("tcp", fmt.Sprintf("%s:22", serverIP), sshConfig)
+	client, err = ssh.Dial("tcp", fmt.Sprintf("%s:22", serverIP), sshConfig)
+	if err != nil {
+		http.Error(w, err.Error(), 401)
+		return
+	}
 
 	// Get hardwareID
 	session, _ = client.NewSession()
@@ -57,7 +62,7 @@ func installHandler(w http.ResponseWriter, req *http.Request, _ httprouter.Param
 	os.Setenv("GOOS", "linux")
 
 	// Build firmware
-	err := exec.Command("go", "build", "-o", "./firmware/firmware", "./firmware").Run()
+	err = exec.Command("go", "build", "-o", "./firmware/firmware", "./firmware").Run()
 	if err != nil {
 		http.Error(w, "build firmware fail!", 500)
 		return
