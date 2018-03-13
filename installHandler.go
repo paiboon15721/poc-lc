@@ -9,6 +9,7 @@ import (
 	"os/exec"
 	"strconv"
 	"strings"
+	"time"
 
 	jen "github.com/dave/jennifer/jen"
 	"github.com/julienschmidt/httprouter"
@@ -52,6 +53,7 @@ func installHandler(w http.ResponseWriter, req *http.Request, _ httprouter.Param
 
 	// Generate config.go file
 	f := jen.NewFile("main")
+	f.Var().Add(jen.Id("buildTime"), jen.Op("="), jen.Lit(time.Now().Format("02/01/2006 15:04:05")))
 	f.Var().Add(jen.Id("customer"), jen.Op("="), jen.Lit(customer))
 	f.Var().Add(jen.Id("hardwareID"), jen.Op("="), jen.Lit(hardwareID))
 	f.Var().Add(jen.Id("quotaTotal"), jen.Op("="), jen.Lit(quotaTotal))

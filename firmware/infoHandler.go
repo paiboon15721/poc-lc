@@ -16,6 +16,7 @@ func infoHandler(w http.ResponseWriter, req *http.Request, _ httprouter.Params) 
 
 	type info struct {
 		Version    string `json:"version"`
+		BuildTime  string `json:"buildTime"`
 		HardwareID string `json:"hardwareID"`
 		Customer   string `json:"customer"`
 		Quota      quota  `json:"quota"`
@@ -26,7 +27,7 @@ func infoHandler(w http.ResponseWriter, req *http.Request, _ httprouter.Params) 
 		usage = b.Stats().KeyN
 		return nil
 	})
-	i := info{"0.0.1", hardwareID, customer, quota{quotaTotal, quotaTotal - usage}}
+	i := info{"0.0.1", buildTime, hardwareID, customer, quota{quotaTotal, quotaTotal - usage}}
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(i)
 }
