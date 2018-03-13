@@ -1,11 +1,9 @@
 package main
 
 import (
-	"bytes"
 	"fmt"
-	"log"
+	"io/ioutil"
 	"net/http"
-	"os/exec"
 	"strings"
 
 	bolt "github.com/coreos/bbolt"
@@ -17,14 +15,11 @@ var db *bolt.DB
 func main() {
 	// Check valid hardwareID
 	var err error
-	cmd := exec.Command("sudo", "cat", "/sys/class/dmi/id/product_uuid")
-	var b bytes.Buffer
-	cmd.Stdout = &b
-	err = cmd.Run()
+	realHardwareIDbyte, err := ioutil.ReadFile("/sys/class/dmi/id/product_uuid")
+	realHardwareID := strings.TrimSuffix(string(realHardwareIDbyte), "\n")
 	if err != nil {
 		panic(err)
 	}
-	realHardwareID := strings.TrimSuffix(b.String(), "\n")
 	if realHardwareID != hardwareID {
 		panic("hardwareID invalid!")
 	}
@@ -32,7 +27,7 @@ func main() {
 	// Initial bolt database
 	db, err = bolt.Open("lc.db", 0644, nil)
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 	defer db.Close()
 	db.Update(func(tx *bolt.Tx) error {
