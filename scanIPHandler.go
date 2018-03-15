@@ -30,10 +30,18 @@ func scanIPHandler(w http.ResponseWriter, req *http.Request, _ httprouter.Params
 		}
 	}
 	ip, ipNet, _ := net.ParseCIDR(fmt.Sprintf("%s/24", localIP))
-	// var wg sync.WaitGroup
-	var detectedIPs []string
+	var (
+		// var wg sync.WaitGroup
+		currentIP   string
+		detectedIPs []string
+	)
 	for ip := ip.Mask(ipNet.Mask); ipNet.Contains(ip); incIP(ip) {
-		detectedIPs = append(detectedIPs, ip.String())
+		currentIP = ip.String()
+		c, err := net.DialTimeout("tcp", fmt.Sprintf("%s:22", currentIP), 1)
+		if err == nil {
+			c.Close()
+			detectedIPs = append(detectedIPs, currentIP)
+		}
 	}
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(detectedIPs)
