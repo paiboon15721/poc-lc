@@ -15,12 +15,30 @@ h1 {
 }
 
 .container {
+  border: solid yellow;
+  padding: 1rem;
+  display: flex;
+}
+
+#btn-scan {
+  width: 100%;
+}
+
+.item-container {
   border: dashed red;
-  width: 25rem;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
   padding: 1rem;
+}
+
+.scan-container {
+  width: 15rem;
+  margin-right: 1rem;
+}
+
+.install-container {
+  width: 25rem;
 }
 
 .form-control {
