@@ -2,9 +2,7 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"net/http"
-	"strings"
 
 	bolt "github.com/coreos/bbolt"
 	"github.com/julienschmidt/httprouter"
@@ -15,14 +13,14 @@ var db *bolt.DB
 func main() {
 	// Check valid hardwareID
 	var err error
-	realHardwareIDbyte, err := ioutil.ReadFile("/sys/class/dmi/id/product_uuid")
-	realHardwareID := strings.TrimSuffix(string(realHardwareIDbyte), "\n")
-	if err != nil {
-		panic(err)
-	}
-	if realHardwareID != hardwareID {
-		panic("hardwareID invalid!")
-	}
+	// realHardwareIDbyte, err := ioutil.ReadFile("/sys/class/dmi/id/product_uuid")
+	// realHardwareID := strings.TrimSuffix(string(realHardwareIDbyte), "\n")
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// if realHardwareID != hardwareID {
+	// 	panic("hardwareID invalid!")
+	// }
 
 	// Initial bolt database
 	db, err = bolt.Open("lc.db", 0644, nil)
