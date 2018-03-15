@@ -62,12 +62,6 @@ label {
   color: black;
 }
 
-.tooltip {
-  position: absolute;
-  background-color: gainsboro;
-  padding: 5px;
-}
-
 #scan-result > h3 {
   text-align: center;
 }
