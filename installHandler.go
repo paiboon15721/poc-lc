@@ -49,7 +49,7 @@ func installHandler(w http.ResponseWriter, req *http.Request, _ httprouter.Param
 	session, _ = client.NewSession()
 	var b bytes.Buffer
 	session.Stdout = &b
-	session.Run(fmt.Sprintf("echo \"%s\" | sudo -S cat /sys/class/dmi/id/product_uuid", serverPassword))
+	session.Run("cat /proc/cpuinfo | grep Serial | cut -d ' ' -f 2")
 	hardwareID := strings.TrimSuffix(b.String(), "\n")
 
 	// Generate config.go file
@@ -61,7 +61,7 @@ func installHandler(w http.ResponseWriter, req *http.Request, _ httprouter.Param
 	f.Save("firmware/config.go")
 
 	// Set go env for build firmware
-	os.Setenv("GOARCH", "386")
+	os.Setenv("GOARCH", "arm64")
 	os.Setenv("GOOS", "linux")
 
 	// Build firmware
