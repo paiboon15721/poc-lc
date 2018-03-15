@@ -24,9 +24,8 @@ func scanIPHandler(w http.ResponseWriter, req *http.Request, _ httprouter.Params
 
 	// Decare datastructure to hold server information
 	var (
-		wg          sync.WaitGroup
-		mux         sync.Mutex
-		detectedIPs []string
+		wg  sync.WaitGroup
+		mux sync.Mutex
 	)
 	type osInfo struct {
 		DistributorID string `json:"distributorID"`
@@ -50,6 +49,7 @@ func scanIPHandler(w http.ResponseWriter, req *http.Request, _ httprouter.Params
 		OsInfo       osInfo       `json:"osInfo"`
 		FirmwareInfo firmwareInfo `json:"firmwareInfo"`
 	}
+	var serverInfos []serverInfo
 
 	// Scan /24 subnet
 	incIP := func(ip net.IP) {
@@ -68,13 +68,14 @@ func scanIPHandler(w http.ResponseWriter, req *http.Request, _ httprouter.Params
 			c, err := net.DialTimeout("tcp", fmt.Sprintf("%s:22", ip), time.Millisecond)
 			if err == nil {
 				c.Close()
+				currentServerInfo := serverInfo{ip, osInfo{}, firmwareInfo{}}
 				mux.Lock()
-				detectedIPs = append(detectedIPs, ip)
+				serverInfos = append(serverInfos, currentServerInfo)
 				mux.Unlock()
 			}
 		}(ip.String())
 	}
 	wg.Wait()
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(detectedIPs)
+	json.NewEncoder(w).Encode(serverInfos)
 }
