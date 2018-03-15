@@ -1,8 +1,8 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
-	"io"
 	"net"
 	"net/http"
 	"strings"
@@ -30,8 +30,11 @@ func scanIPHandler(w http.ResponseWriter, req *http.Request, _ httprouter.Params
 		}
 	}
 	ip, ipNet, _ := net.ParseCIDR(fmt.Sprintf("%s/24", localIP))
+	// var wg sync.WaitGroup
+	var detectedIPs []string
 	for ip := ip.Mask(ipNet.Mask); ipNet.Contains(ip); incIP(ip) {
-		fmt.Println(ip.String())
+		detectedIPs = append(detectedIPs, ip.String())
 	}
-	io.WriteString(w, localIP)
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(detectedIPs)
 }
