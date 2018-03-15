@@ -28,26 +28,26 @@ func scanIPHandler(w http.ResponseWriter, req *http.Request, _ httprouter.Params
 		mux sync.Mutex
 	)
 	type osInfo struct {
-		DistributorID string `json:"distributorID"`
-		Description   string `json:"description"`
-		Release       string `json:"release"`
-		Codename      string `json:"codename"`
+		DistributorID string `json:"distributorID,omitempty"`
+		Description   string `json:"description,omitempty"`
+		Release       string `json:"release,omitempty"`
+		Codename      string `json:"codename,omitempty"`
 	}
 	type quota struct {
-		Total  int `json:"total"`
-		Remain int `json:"remain"`
+		Total  int `json:"total,omitempty"`
+		Remain int `json:"remain,omitempty"`
 	}
 	type firmwareInfo struct {
-		Version    string `json:"version"`
-		BuildTime  string `json:"buildTime"`
-		HardwareID string `json:"hardwareID"`
-		Customer   string `json:"customer"`
-		Quota      quota  `json:"quota"`
+		Version    string `json:"version,omitempty"`
+		BuildTime  string `json:"buildTime,omitempty"`
+		HardwareID string `json:"hardwareID,omitempty"`
+		Customer   string `json:"customer,omitempty"`
+		Quota      quota  `json:"quota,omitempty"`
 	}
 	type serverInfo struct {
-		IP           string       `json:"ip"`
-		OsInfo       osInfo       `json:"osInfo"`
-		FirmwareInfo firmwareInfo `json:"firmwareInfo"`
+		IP           string        `json:"ip"`
+		OsInfo       *osInfo       `json:"osInfo,omitempty"`
+		FirmwareInfo *firmwareInfo `json:"firmwareInfo,omitempty"`
 	}
 	var serverInfos []serverInfo
 
@@ -68,7 +68,7 @@ func scanIPHandler(w http.ResponseWriter, req *http.Request, _ httprouter.Params
 			c, err := net.DialTimeout("tcp", fmt.Sprintf("%s:22", ip), time.Millisecond)
 			if err == nil {
 				c.Close()
-				currentServerInfo := serverInfo{ip, osInfo{}, firmwareInfo{}}
+				currentServerInfo := serverInfo{IP: ip}
 				mux.Lock()
 				serverInfos = append(serverInfos, currentServerInfo)
 				mux.Unlock()
