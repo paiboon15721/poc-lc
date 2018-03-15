@@ -32,3 +32,33 @@ $('#btn-submit').click(function() {
     btnSubmit.attr('disabled', false);
   });
 });
+
+function selectServer(ip) {
+  $('#serverIP').val(ip);
+}
+
+$('#btn-scan').click(function() {
+  var scanResult = $('#scan-result');
+  var btnScan = $('#btn-scan');
+  scanResult
+    .html('<h3>Scanning IP, please wait...</h3>')
+    .css('color', '#FFEB3B');
+  btnScan.attr('disabled', true);
+  $.get('/api/scan-ip', function(data) {
+    if (!data) {
+      scanResult.html('<h3>Not found</h3>').css('color', 'red');
+    } else {
+      html = '<ul class="server-list">';
+      data.forEach(function(v) {
+        html +=
+          '<li onClick="selectServer(\'' + v.ip + '\')">' + v.ip + '</li>';
+      });
+      html += '</ul>';
+      scanResult.html(html);
+    }
+    btnScan.attr('disabled', false);
+  }).fail(function(data) {
+    scanResult.html(data.responseText).css('color', 'red');
+    btnScan.attr('disabled', false);
+  });
+});
