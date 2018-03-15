@@ -33,7 +33,7 @@ h1 {
 }
 
 .scan-container {
-  width: 15rem;
+  width: 20rem;
   margin-right: 1rem;
 }
 
@@ -58,6 +58,7 @@ label {
 
 .server-list > li {
   margin-bottom: 5px;
+  padding: 1rem;
   cursor: pointer;
   color: black;
 }
