@@ -58,7 +58,7 @@ func scanIPHandler(w http.ResponseWriter, req *http.Request, _ httprouter.Params
 		wg.Add(1)
 		go func(ip string) {
 			defer wg.Done()
-			c, err := net.DialTimeout("tcp", fmt.Sprintf("%s:22", ip), time.Millisecond)
+			c, err := net.DialTimeout("tcp", fmt.Sprintf("%s:22", ip), time.Second)
 			if err == nil {
 				c.Close()
 				var currentServerInfo serverInfo
