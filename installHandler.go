@@ -83,6 +83,6 @@ func installHandler(w http.ResponseWriter, req *http.Request, _ httprouter.Param
 
 	// Start license manager service
 	session, _ = client.NewSession()
-	session.Run("chmod +x firmware && mkdir -p lc && mv firmware lcmgr.service lc/ && echo \"student\" | sudo -S cp lc/lcmgr.service /etc/systemd/system/ && echo \"student\" | sudo -S systemctl enable lcmgr.service && echo \"student\" | sudo -S systemctl restart lcmgr.service")
+	session.Run(fmt.Sprintf("chmod +x firmware && mkdir -p lc && mv firmware lcmgr.service lc/ && echo \"%s\" | sudo -S cp lc/lcmgr.service /etc/systemd/system/ && echo \"%s\" | sudo -S systemctl enable lcmgr.service && echo \"%s\" | sudo -S systemctl restart lcmgr.service", serverPassword, serverPassword, serverPassword))
 	io.WriteString(w, "Installed firmware success!")
 }
