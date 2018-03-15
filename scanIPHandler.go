@@ -27,12 +27,6 @@ func scanIPHandler(w http.ResponseWriter, req *http.Request, _ httprouter.Params
 		wg  sync.WaitGroup
 		mux sync.Mutex
 	)
-	type osInfo struct {
-		DistributorID string `json:"distributorID,omitempty"`
-		Description   string `json:"description,omitempty"`
-		Release       string `json:"release,omitempty"`
-		Codename      string `json:"codename,omitempty"`
-	}
 	type quota struct {
 		Total  int `json:"total,omitempty"`
 		Remain int `json:"remain,omitempty"`
@@ -46,7 +40,6 @@ func scanIPHandler(w http.ResponseWriter, req *http.Request, _ httprouter.Params
 	}
 	type serverInfo struct {
 		IP           string        `json:"ip"`
-		OsInfo       *osInfo       `json:"osInfo,omitempty"`
 		FirmwareInfo *firmwareInfo `json:"firmwareInfo,omitempty"`
 	}
 	var serverInfos []serverInfo
@@ -70,6 +63,7 @@ func scanIPHandler(w http.ResponseWriter, req *http.Request, _ httprouter.Params
 				c.Close()
 				var currentServerInfo serverInfo
 				currentServerInfo.IP = ip
+
 				// Get firmware information
 				var currentFirmwareInfo firmwareInfo
 				client := http.Client{
@@ -81,6 +75,8 @@ func scanIPHandler(w http.ResponseWriter, req *http.Request, _ httprouter.Params
 					json.NewDecoder(resp.Body).Decode(&currentFirmwareInfo)
 					currentServerInfo.FirmwareInfo = &currentFirmwareInfo
 				}
+
+				// Append detected server
 				mux.Lock()
 				serverInfos = append(serverInfos, currentServerInfo)
 				mux.Unlock()
