@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"strings"
 	"sync"
+	"time"
 
 	"github.com/julienschmidt/httprouter"
 )
@@ -33,16 +34,19 @@ func scanIPHandler(w http.ResponseWriter, req *http.Request, _ httprouter.Params
 	ip, ipNet, _ := net.ParseCIDR(fmt.Sprintf("%s/24", localIP))
 	var (
 		wg          sync.WaitGroup
+		mux         sync.Mutex
 		detectedIPs []string
 	)
 	for ip := ip.Mask(ipNet.Mask); ipNet.Contains(ip); incIP(ip) {
 		wg.Add(1)
 		go func(ip string) {
 			defer wg.Done()
-			c, err := net.DialTimeout("tcp", fmt.Sprintf("%s:22", ip), 1)
+			c, err := net.DialTimeout("tcp", fmt.Sprintf("%s:22", ip), time.Millisecond)
 			if err == nil {
 				c.Close()
+				mux.Lock()
 				detectedIPs = append(detectedIPs, ip)
+				mux.Unlock()
 			}
 		}(ip.String())
 	}
