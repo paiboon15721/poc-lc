@@ -22,6 +22,35 @@ func scanIPHandler(w http.ResponseWriter, req *http.Request, _ httprouter.Params
 	localAddr := conn.LocalAddr().(*net.UDPAddr).String()
 	localIP := localAddr[:strings.IndexByte(localAddr, ':')]
 
+	// Decare datastructure to hold server information
+	var (
+		wg          sync.WaitGroup
+		mux         sync.Mutex
+		detectedIPs []string
+	)
+	type osInfo struct {
+		DistributorID string `json:"distributorID"`
+		Description   string `json:"description"`
+		Release       string `json:"release"`
+		Codename      string `json:"codename"`
+	}
+	type quota struct {
+		Total  int `json:"total"`
+		Remain int `json:"remain"`
+	}
+	type firmwareInfo struct {
+		Version    string `json:"version"`
+		BuildTime  string `json:"buildTime"`
+		HardwareID string `json:"hardwareID"`
+		Customer   string `json:"customer"`
+		Quota      quota  `json:"quota"`
+	}
+	type serverInfo struct {
+		IP           string       `json:"ip"`
+		OsInfo       osInfo       `json:"osInfo"`
+		FirmwareInfo firmwareInfo `json:"firmwareInfo"`
+	}
+
 	// Scan /24 subnet
 	incIP := func(ip net.IP) {
 		for j := len(ip) - 1; j >= 0; j-- {
@@ -32,11 +61,6 @@ func scanIPHandler(w http.ResponseWriter, req *http.Request, _ httprouter.Params
 		}
 	}
 	ip, ipNet, _ := net.ParseCIDR(fmt.Sprintf("%s/24", localIP))
-	var (
-		wg          sync.WaitGroup
-		mux         sync.Mutex
-		detectedIPs []string
-	)
 	for ip := ip.Mask(ipNet.Mask); ipNet.Contains(ip); incIP(ip) {
 		wg.Add(1)
 		go func(ip string) {
