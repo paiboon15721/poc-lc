@@ -50,3 +50,25 @@ label {
   width: 8rem;
   text-align: right;
 }
+
+.server-list {
+  list-style-type: decimal;
+  padding: 0;
+}
+
+.server-list > li {
+  margin-bottom: 5px;
+  cursor: pointer;
+  color: black;
+  background-color: greenyellow;
+}
+
+.tooltip {
+  position: absolute;
+  background-color: gainsboro;
+  padding: 5px;
+}
+
+#scan-result > h3 {
+  text-align: center;
+}
