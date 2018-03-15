@@ -68,7 +68,19 @@ func scanIPHandler(w http.ResponseWriter, req *http.Request, _ httprouter.Params
 			c, err := net.DialTimeout("tcp", fmt.Sprintf("%s:22", ip), time.Millisecond)
 			if err == nil {
 				c.Close()
-				currentServerInfo := serverInfo{IP: ip}
+				var currentServerInfo serverInfo
+				currentServerInfo.IP = ip
+				// Get firmware information
+				var currentFirmwareInfo firmwareInfo
+				client := http.Client{
+					Timeout: time.Second,
+				}
+				resp, err := client.Get(fmt.Sprintf("http://%s:3001/info", ip))
+				if err == nil {
+					defer resp.Body.Close()
+					json.NewDecoder(resp.Body).Decode(&currentFirmwareInfo)
+					currentServerInfo.FirmwareInfo = &currentFirmwareInfo
+				}
 				mux.Lock()
 				serverInfos = append(serverInfos, currentServerInfo)
 				mux.Unlock()
