@@ -54,23 +54,42 @@ $('#btn-scan').click(function() {
         if (v.firmwareInfo) {
           color = 'greenyellow';
         } else {
-          color = 'red';
+          color = '#9E9E9E';
         }
         html +=
           '<li style="background-color: ' +
           color +
           ';" onClick="selectServer(\'' +
           v.ip +
-          '\')">' +
-          v.ip;
+          '\')"><font color="blue">' +
+          v.ip +
+          '</font>';
         if (v.firmwareInfo) {
           html += '<ul>';
-          html += '<li>version: ' + v.firmwareInfo.version + '</li>';
-          html += '<li>buildTime: ' + v.firmwareInfo.buildTime + '</li>';
-          html += '<li>hardwareID: ' + v.firmwareInfo.hardwareID + '</li>';
-          html += '<li>customer: ' + v.firmwareInfo.customer + '</li>';
-          html += '<li>quotaTotal: ' + v.firmwareInfo.quota.total + '</li>';
-          html += '<li>quotaRemain: ' + v.firmwareInfo.quota.remain + '</li>';
+          html +=
+            '<li>version: <font color="blue">' +
+            v.firmwareInfo.version +
+            '</font></li>';
+          html +=
+            '<li>buildTime: <font color="blue">' +
+            v.firmwareInfo.buildTime +
+            '</font></li>';
+          html +=
+            '<li>hardwareID: <font color="blue">' +
+            v.firmwareInfo.hardwareID +
+            '</font></li>';
+          html +=
+            '<li>customer: <font color="blue">' +
+            v.firmwareInfo.customer +
+            '</font></li>';
+          html +=
+            '<li>quotaTotal: <font color="blue">' +
+            v.firmwareInfo.quota.total +
+            '</font></li>';
+          html +=
+            '<li>quotaRemain: <font color="blue">' +
+            v.firmwareInfo.quota.remain +
+            '</font></li>';
           html += '</ul>';
         }
         html += '</li>';
