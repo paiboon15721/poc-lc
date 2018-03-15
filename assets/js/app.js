@@ -48,10 +48,32 @@ $('#btn-scan').click(function() {
     if (!data) {
       scanResult.html('<h3>Not found</h3>').css('color', 'red');
     } else {
-      html = '<ul class="server-list">';
+      var color = '';
+      var html = '<ul class="server-list">';
       data.forEach(function(v) {
+        if (v.firmwareInfo) {
+          color = 'greenyellow';
+        } else {
+          color = 'red';
+        }
         html +=
-          '<li onClick="selectServer(\'' + v.ip + '\')">' + v.ip + '</li>';
+          '<li style="background-color: ' +
+          color +
+          ';" onClick="selectServer(\'' +
+          v.ip +
+          '\')">' +
+          v.ip;
+        if (v.firmwareInfo) {
+          html += '<ul>';
+          html += '<li>version: ' + v.firmwareInfo.version + '</li>';
+          html += '<li>buildTime: ' + v.firmwareInfo.buildTime + '</li>';
+          html += '<li>hardwareID: ' + v.firmwareInfo.hardwareID + '</li>';
+          html += '<li>customer: ' + v.firmwareInfo.customer + '</li>';
+          html += '<li>quotaTotal: ' + v.firmwareInfo.quota.total + '</li>';
+          html += '<li>quotaRemain: ' + v.firmwareInfo.quota.remain + '</li>';
+          html += '</ul>';
+        }
+        html += '</li>';
       });
       html += '</ul>';
       scanResult.html(html);
