@@ -61,7 +61,7 @@ func installHandler(w http.ResponseWriter, req *http.Request, _ httprouter.Param
 	f.Save("firmware/config.go")
 
 	// Set go env for build firmware
-	os.Setenv("GOARCH", "arm64")
+	os.Setenv("GOARCH", "arm")
 	os.Setenv("GOOS", "linux")
 
 	// Build firmware
