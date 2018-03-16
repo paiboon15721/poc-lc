@@ -1,4 +1,4 @@
-$('#btn-submit').click(function() {
+$('#btn-install').click(function() {
   var serverIP = $('#serverIP').val();
   var serverUsername = $('#serverUsername').val();
   var serverPassword = $('#serverPassword').val();
@@ -11,11 +11,11 @@ $('#btn-submit').click(function() {
     statusMessage.html('Required all field!').css('color', 'red');
     return;
   }
-  var btnSubmit = $('#btn-submit');
+  var btnInstall = $('#btn-install');
   statusMessage
     .html('Installing firmware, please wait...')
     .css('color', '#FFEB3B');
-  btnSubmit.attr('disabled', true);
+  btnInstall.attr('disabled', true);
   $.post(
     '/api/install',
     {
@@ -27,11 +27,11 @@ $('#btn-submit').click(function() {
     },
     function(data) {
       statusMessage.html(data).css('color', '#64DD17');
-      btnSubmit.attr('disabled', false);
+      btnInstall.attr('disabled', false);
     }
   ).fail(function(data) {
     statusMessage.html(data.responseText).css('color', 'red');
-    btnSubmit.attr('disabled', false);
+    btnInstall.attr('disabled', false);
   });
 });
 
