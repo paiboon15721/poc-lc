@@ -4,3 +4,4 @@ firmware/config.go
 firmware/*.exe
 firmware/*.db*
 firmware/firmware
+firmware/lcmgr.service
