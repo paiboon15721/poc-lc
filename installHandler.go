@@ -52,15 +52,18 @@ func installHandler(w http.ResponseWriter, req *http.Request, _ httprouter.Param
 	tpl, err = template.ParseFiles("lcmgr.service")
 	if err != nil {
 		http.Error(w, err.Error(), 500)
+		return
 	}
 	nf, err = os.Create("firmware/lcmgr.service")
 	if err != nil {
 		http.Error(w, err.Error(), 500)
+		return
 	}
 	defer nf.Close()
 	err = tpl.Execute(nf, serverUsername)
 	if err != nil {
 		http.Error(w, err.Error(), 500)
+		return
 	}
 
 	// Get hardwareID
