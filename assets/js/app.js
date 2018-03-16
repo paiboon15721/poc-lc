@@ -1,3 +1,29 @@
+$('#btn-test-connect').click(function() {
+  var serverIP = $('#serverIP').val();
+  var serverUsername = $('#serverUsername').val();
+  var serverPassword = $('#serverPassword').val();
+  if (!(serverIP && serverUsername && serverPassword)) {
+    statusMessage
+      .html('Required serverIP, serverUsername and serverPassword field!')
+      .css('color', 'red');
+    return;
+  }
+  var statusMessage = $('#status-message');
+  $.get(
+    '/api/get-connection/' +
+      serverIP +
+      '/' +
+      serverUsername +
+      '/' +
+      serverPassword,
+    function(data) {
+      statusMessage.html('<pre>' + data + '</pre>').css('color', 'blue');
+    }
+  ).fail(function(data) {
+    statusMessage.html(data.responseText).css('color', 'red');
+  });
+});
+
 $('#btn-test-get-info').click(function() {
   var serverIP = $('#serverIP').val();
   var statusMessage = $('#status-message');
