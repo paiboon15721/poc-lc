@@ -5,7 +5,7 @@ body {
   box-sizing: border-box;
   height: 100vh;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 h1 {
@@ -21,7 +21,6 @@ h1 {
   border: dashed red;
   display: flex;
   flex-flow: column nowrap;
-  align-items: center;
   padding: 1rem;
 }
 
@@ -29,11 +28,11 @@ h1 {
   width: 20rem;
   min-width: 20rem;
   margin-right: 1rem;
+  align-items: center;
 }
 
 .install-container {
   min-width: 25rem;
-  flex-grow: 1;
 }
 
 .form-control {
@@ -64,4 +63,10 @@ label {
 
 input {
   width: 15rem;
+}
+
+#status-message {
+  border: 1px dashed yellow;
+  background-color: slategrey;
+  flex-grow: 1;
 }
