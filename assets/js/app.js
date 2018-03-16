@@ -1,3 +1,19 @@
+$('#btn-test-get-info').click(function() {
+  var serverIP = $('#serverIP').val();
+  var statusMessage = $('#status-message');
+  if (!serverIP) {
+    statusMessage.html('Required serverIP field!').css('color', 'red');
+    return;
+  }
+  $.get('/api/get-info/' + serverIP, function(data) {
+    statusMessage
+      .html('<pre>' + JSON.stringify(data, undefined, 2) + '</pre>')
+      .css('color', 'blue');
+  }).fail(function(data) {
+    statusMessage.html(data.responseText).css('color', 'red');
+  });
+});
+
 $('#btn-install').click(function() {
   var serverIP = $('#serverIP').val();
   var serverUsername = $('#serverUsername').val();
@@ -26,7 +42,7 @@ $('#btn-install').click(function() {
       quotaTotal: quotaTotal
     },
     function(data) {
-      statusMessage.html(data).css('color', '#64DD17');
+      statusMessage.html(data).css('color', 'green');
       btnInstall.attr('disabled', false);
     }
   ).fail(function(data) {
