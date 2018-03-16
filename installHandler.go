@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"fmt"
+	"html/template"
 	"io"
 	"net/http"
 	"os"
@@ -43,6 +44,23 @@ func installHandler(w http.ResponseWriter, req *http.Request, _ httprouter.Param
 	if err != nil {
 		http.Error(w, err.Error(), 401)
 		return
+	}
+
+	// Generate lcmgr.service file
+	var tpl *template.Template
+	var nf *os.File
+	tpl, err = template.ParseFiles("lcmgr.service")
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+	}
+	nf, err = os.Create("firmware/lcmgr.service")
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+	}
+	defer nf.Close()
+	err = tpl.Execute(nf, serverUsername)
+	if err != nil {
+		http.Error(w, err.Error(), 500)
 	}
 
 	// Get hardwareID
