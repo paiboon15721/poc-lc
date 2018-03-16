@@ -11,42 +11,42 @@
 </head>
 
 <body>
-  <div class="container">
-    <div class="item-container scan-container">
-      <div>
-        <h1>Scan Server</h1>
-        <button id="btn-scan">Scan</button>
-        <div id="scan-result"></div>
+  <div class="item-container scan-container">
+    <div>
+      <h1>Scan Server</h1>
+      <button id="btn-scan">Scan</button>
+      <div id="scan-result"></div>
+    </div>
+  </div>
+  <div class="item-container install-container">
+    <div>
+      <h1>Install Firmware</h1>
+      <div class="form-control">
+        <label>Server IP : </label>
+        <input type="text" id="serverIP" />
+      </div>
+      <div class="form-control">
+        <label>Server Username : </label>
+        <input type="text" id="serverUsername" value="pi" />
+      </div>
+      <div class="form-control">
+        <label>Server Password : </label>
+        <input type="text" id="serverPassword" value="raspberry" />
+      </div>
+      <div class="form-control">
+        <label>Customer : </label>
+        <input type="text" id="customer" value="bank123" />
+      </div>
+      <div class="form-control">
+        <label>Quota Total : </label>
+        <input type="number" id="quotaTotal" value="5" />
+      </div>
+      <div class="form-control">
+        <label></label>
+        <button id="btn-submit">Install</button>
       </div>
     </div>
-    <div class="item-container install-container">
-      <div>
-        <h1>Install Firmware</h1>
-        <div class="form-control">
-          <label>Server IP : </label>
-          <input type="text" id="serverIP" />
-        </div>
-        <div class="form-control">
-          <label>Server Username : </label>
-          <input type="text" id="serverUsername" value="pi" />
-        </div>
-        <div class="form-control">
-          <label>Server Password : </label>
-          <input type="text" id="serverPassword" value="raspberry" />
-        </div>
-        <div class="form-control">
-          <label>Customer : </label>
-          <input type="text" id="customer" value="bank123" />
-        </div>
-        <div class="form-control">
-          <label>Quota Total : </label>
-          <input type="number" id="quotaTotal" value="5" />
-        </div>
-        <div class="form-control">
-          <label></label>
-          <button id="btn-submit">Install</button>
-        </div>
-      </div>
+    <div>
       <h4 id="message"></h4>
     </div>
   </div>
