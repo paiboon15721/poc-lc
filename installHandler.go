@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"html/template"
 	"io"
-	"log"
 	"net/http"
 	"os"
 	"os/exec"
@@ -20,7 +19,6 @@ import (
 )
 
 func installHandler(w http.ResponseWriter, req *http.Request, _ httprouter.Params) {
-	start := time.Now()
 	// Get form body data
 	if err := req.ParseForm(); err != nil {
 		http.Error(w, err.Error(), 500)
@@ -108,5 +106,4 @@ func installHandler(w http.ResponseWriter, req *http.Request, _ httprouter.Param
 	session, _ = client.NewSession()
 	session.Run(fmt.Sprintf("rm -rf lc && chmod +x firmware && mkdir -p lc && mv firmware lcmgr.service lc/ && echo \"%s\" | sudo -S cp lc/lcmgr.service /etc/systemd/system/ && echo \"%s\" | sudo -S systemctl enable lcmgr.service && echo \"%s\" | sudo -S systemctl restart lcmgr.service", serverPassword, serverPassword, serverPassword))
 	io.WriteString(w, "Installed firmware success!")
-	log.Printf("total : %s", time.Since(start))
 }
