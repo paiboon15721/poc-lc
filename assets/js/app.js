@@ -4,15 +4,17 @@ $('#btn-submit').click(function() {
   var serverPassword = $('#serverPassword').val();
   var customer = $('#customer').val();
   var quotaTotal = $('#quotaTotal').val();
-  var message = $('#message');
+  var statusMessage = $('#status-message');
   if (
     !(serverIP && serverUsername && serverPassword && customer && quotaTotal)
   ) {
-    message.html('Required all field!').css('color', 'red');
+    statusMessage.html('Required all field!').css('color', 'red');
     return;
   }
   var btnSubmit = $('#btn-submit');
-  message.html('Installing firmware, please wait...').css('color', '#FFEB3B');
+  statusMessage
+    .html('Installing firmware, please wait...')
+    .css('color', '#FFEB3B');
   btnSubmit.attr('disabled', true);
   $.post(
     '/api/install',
@@ -24,11 +26,11 @@ $('#btn-submit').click(function() {
       quotaTotal: quotaTotal
     },
     function(data) {
-      message.html(data).css('color', '#64DD17');
+      statusMessage.html(data).css('color', '#64DD17');
       btnSubmit.attr('disabled', false);
     }
   ).fail(function(data) {
-    message.html(data.responseText).css('color', 'red');
+    statusMessage.html(data.responseText).css('color', 'red');
     btnSubmit.attr('disabled', false);
   });
 });
