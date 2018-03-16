@@ -66,7 +66,8 @@ input {
 }
 
 #status-message {
+  padding: 1rem;
   border: 1px dashed yellow;
-  background-color: slategrey;
+  background-color: rgb(168, 179, 190);
   flex-grow: 1;
 }
