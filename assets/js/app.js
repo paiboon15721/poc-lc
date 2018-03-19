@@ -1,3 +1,38 @@
+$('#btn-uninstall').click(function() {
+  var serverIP = $('#serverIP').val();
+  var serverUsername = $('#serverUsername').val();
+  var serverPassword = $('#serverPassword').val();
+  var statusMessage = $('#status-message');
+  if (!(serverIP && serverUsername && serverPassword)) {
+    statusMessage
+      .html('Required serverIP, serverUsername and serverPassword field!')
+      .css('color', 'red');
+    return;
+  }
+  if (confirm('Are you sure?')) {
+    var btnUninstall = $('#btn-uninstall');
+    statusMessage
+      .html('Uninstalling firmware, please wait...')
+      .css('color', '#FFEB3B');
+    btnUninstall.attr('disabled', true);
+    $.post(
+      '/api/uninstall',
+      {
+        serverIP: serverIP,
+        serverUsername: serverUsername,
+        serverPassword: serverPassword
+      },
+      function(data) {
+        statusMessage.html(data).css('color', 'green');
+        btnUninstall.attr('disabled', false);
+      }
+    ).fail(function(data) {
+      statusMessage.html(data.responseText).css('color', 'red');
+      btnUninstall.attr('disabled', false);
+    });
+  }
+});
+
 $('#btn-test-connect').click(function() {
   var serverIP = $('#serverIP').val();
   var serverUsername = $('#serverUsername').val();
