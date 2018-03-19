@@ -1,3 +1,38 @@
+$('#btn-shutdown-server').click(function() {
+  var serverIP = $('#serverIP').val();
+  var serverUsername = $('#serverUsername').val();
+  var serverPassword = $('#serverPassword').val();
+  var statusMessage = $('#status-message');
+  if (!(serverIP && serverUsername && serverPassword)) {
+    statusMessage
+      .html('Required serverIP, serverUsername and serverPassword field!')
+      .css('color', 'red');
+    return;
+  }
+  if (confirm('Are you sure?')) {
+    var btnShutdownServer = $('#btn-shutdown-server');
+    statusMessage
+      .html('Shutdowning server, please wait...')
+      .css('color', '#FFEB3B');
+    btnShutdownServer.attr('disabled', true);
+    $.post(
+      '/api/shutdown',
+      {
+        serverIP: serverIP,
+        serverUsername: serverUsername,
+        serverPassword: serverPassword
+      },
+      function(data) {
+        statusMessage.html(data).css('color', 'green');
+        btnShutdownServer.attr('disabled', false);
+      }
+    ).fail(function(data) {
+      statusMessage.html(data.responseText).css('color', 'red');
+      btnShutdownServer.attr('disabled', false);
+    });
+  }
+});
+
 $('#btn-uninstall').click(function() {
   var serverIP = $('#serverIP').val();
   var serverUsername = $('#serverUsername').val();
