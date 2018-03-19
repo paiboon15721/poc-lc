@@ -25,5 +25,5 @@ func getConnectionHandler(w http.ResponseWriter, req *http.Request, ps httproute
 	var b bytes.Buffer
 	session.Stdout = &b
 	session.Run("lsb_release -a")
-	io.WriteString(w, fmt.Sprintf("Connect success!\ncontent below is server information.\n-------------------------------------------------\n\n%s", b.String()))
+	io.WriteString(w, fmt.Sprintf("Connect success!\nThe contents below are server information.\n-------------------------------------------------\n\n%s", b.String()))
 }
