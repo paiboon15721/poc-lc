@@ -31,16 +31,8 @@ func installHandler(w http.ResponseWriter, req *http.Request, _ httprouter.Param
 	quotaTotal, _ := strconv.Atoi(req.PostFormValue("quotaTotal"))
 
 	// Init ssh session
-	var err error
-	var client *ssh.Client
 	var session *ssh.Session
-	sshConfig := &ssh.ClientConfig{
-		User:    serverUsername,
-		Auth:    []ssh.AuthMethod{ssh.Password(serverPassword)},
-		Timeout: time.Duration(time.Millisecond * 2000),
-	}
-	sshConfig.HostKeyCallback = ssh.InsecureIgnoreHostKey()
-	client, err = ssh.Dial("tcp", fmt.Sprintf("%s:22", serverIP), sshConfig)
+	client, err := getSSHClient(serverIP, serverUsername, serverPassword)
 	if err != nil {
 		http.Error(w, err.Error(), 401)
 		return
