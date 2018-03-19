@@ -39,7 +39,7 @@ func getRealHardwareID() (realHardwareID string, err error) {
 		return start, nil, nil
 	}
 	scanner.Split(scanHardwareID)
-	if scanner.Scan() {
+	if !scanner.Scan() {
 		return "", errors.New("can not get hardwareID")
 	}
 	realHardwareID = scanner.Text()
