@@ -9,6 +9,11 @@ $('#btn-test-connect').click(function() {
     return;
   }
   var statusMessage = $('#status-message');
+  var btnTestConnect = $('#btn-test-connect');
+  statusMessage
+    .html('Connecting to server, please wait...')
+    .css('color', '#FFEB3B');
+  btnTestConnect.attr('disabled', true);
   $.get(
     '/api/get-connection/' +
       serverIP +
@@ -18,9 +23,11 @@ $('#btn-test-connect').click(function() {
       serverPassword,
     function(data) {
       statusMessage.html('<pre>' + data + '</pre>').css('color', 'blue');
+      btnTestConnect.attr('disabled', false);
     }
   ).fail(function(data) {
     statusMessage.html(data.responseText).css('color', 'red');
+    btnTestConnect.attr('disabled', false);
   });
 });
 
