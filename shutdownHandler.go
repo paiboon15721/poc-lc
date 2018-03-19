@@ -11,7 +11,7 @@ import (
 	"golang.org/x/crypto/ssh"
 )
 
-func shutdownHandler(w http.ResponseWriter, req *http.Request, ps httprouter.Params) {
+func shutdownHandler(w http.ResponseWriter, req *http.Request, _ httprouter.Params) {
 	if err := req.ParseForm(); err != nil {
 		http.Error(w, err.Error(), 500)
 		return
