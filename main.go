@@ -10,6 +10,7 @@ func main() {
 	router := httprouter.New()
 	router.ServeFiles("/app/*filepath", http.Dir("assets"))
 	router.POST("/api/install", installHandler)
+	router.POST("/api/uninstall", uninstallHandler)
 	router.POST("/api/shutdown", shutdownHandler)
 	router.GET("/api/scan-ip", scanIPHandler)
 	router.GET("/api/get-info/:serverIP", getInfoHandler)
