@@ -8,6 +8,7 @@
   <title>Install Firmware</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
   <link rel="stylesheet" href="css/default.css">
+  <link rel="stylesheet" href="css/mq-800-plus.css" media="(min-width: 800px)">
 </head>
 
 <body>
@@ -18,7 +19,7 @@
       <div id="scan-result"></div>
     </div>
   </div>
-  <div class="item-container install-container">
+  <div class="item-container">
     <div>
       <h1>Install Firmware</h1>
       <div class="form-control">
@@ -45,12 +46,15 @@
         <label></label>
         <button id="btn-install">Install</button>
         <button id="btn-uninstall">Uninstall</button>
-        <button id="btn-shutdown-server">Shutdown server</button>
       </div>
       <div class="form-control">
         <label></label>
         <button id="btn-test-connect">Test connect</button>
         <button id="btn-test-get-info">Test get info</button>
+      </div>
+      <div class="form-control">
+        <label></label>
+        <button id="btn-shutdown-server">Shutdown server</button>
       </div>
     </div>
     <div id="status-message"></div>

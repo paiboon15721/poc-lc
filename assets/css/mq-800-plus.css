@@ -1,0 +1,9 @@
+body {
+  flex-direction: row;
+  justify-content: center;
+}
+
+.scan-container {
+  margin-right: 1rem;
+  margin-bottom: 0;
+}
