@@ -13,6 +13,6 @@ func main() {
 	router.POST("/api/shutdown", shutdownHandler)
 	router.GET("/api/scan-ip", scanIPHandler)
 	router.GET("/api/get-info/:ip", getInfoHandler)
-	router.GET("/api/get-connection/:ip/:username/:password", getConnectionHandler)
+	router.GET("/api/get-connection/:serverIP/:serverUsername/:serverPassword", getConnectionHandler)
 	http.ListenAndServe(":3001", router)
 }

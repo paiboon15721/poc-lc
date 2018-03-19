@@ -16,12 +16,12 @@ func getConnectionHandler(w http.ResponseWriter, req *http.Request, ps httproute
 	var client *ssh.Client
 	var session *ssh.Session
 	sshConfig := &ssh.ClientConfig{
-		User:    ps.ByName("username"),
-		Auth:    []ssh.AuthMethod{ssh.Password(ps.ByName("password"))},
+		User:    ps.ByName("serverUsername"),
+		Auth:    []ssh.AuthMethod{ssh.Password(ps.ByName("serverPassword"))},
 		Timeout: time.Duration(time.Millisecond * 2000),
 	}
 	sshConfig.HostKeyCallback = ssh.InsecureIgnoreHostKey()
-	client, err = ssh.Dial("tcp", fmt.Sprintf("%s:22", ps.ByName("ip")), sshConfig)
+	client, err = ssh.Dial("tcp", fmt.Sprintf("%s:22", ps.ByName("serverIP")), sshConfig)
 	if err != nil {
 		http.Error(w, err.Error(), 500)
 		return
