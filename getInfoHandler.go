@@ -13,7 +13,7 @@ func getInfoHandler(w http.ResponseWriter, req *http.Request, ps httprouter.Para
 	client := http.Client{
 		Timeout: time.Second,
 	}
-	resp, err := client.Get(fmt.Sprintf("http://%s:3001/info", ps.ByName("ip")))
+	resp, err := client.Get(fmt.Sprintf("http://%s:3001/info", ps.ByName("serverIP")))
 	if err != nil {
 		http.Error(w, "Service unavailable", 503)
 		return

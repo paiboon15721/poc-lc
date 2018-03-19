@@ -12,7 +12,7 @@ func main() {
 	router.POST("/api/install", installHandler)
 	router.POST("/api/shutdown", shutdownHandler)
 	router.GET("/api/scan-ip", scanIPHandler)
-	router.GET("/api/get-info/:ip", getInfoHandler)
+	router.GET("/api/get-info/:serverIP", getInfoHandler)
 	router.GET("/api/get-connection/:serverIP/:serverUsername/:serverPassword", getConnectionHandler)
 	http.ListenAndServe(":3001", router)
 }
